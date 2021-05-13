@@ -8,5 +8,11 @@ defmodule StringBinary do
     sorted2 = Enum.sort(word2, :asc)
     sorted1 == sorted2
   end
+
+  def capitalize_sentences(sentence) do
+    String.split(sentence, ". ")
+    |> Enum.map(&(String.capitalize(&1)))
+    |> Enum.join(". ")
+  end
   
 end
