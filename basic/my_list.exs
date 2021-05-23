@@ -11,7 +11,7 @@ defmodule MyList do
 
   defp _reduce([head | tail], value, func) do
     _reduce(tail, func.(head, value), func)
-  end 
+  end
 
   def max([]) do
     0
@@ -21,15 +21,15 @@ defmodule MyList do
     _max(tail, head)
   end
 
-  def _max([], max_number) do
+  defp _max([], max_number) do
     max_number
   end
 
-  def _max([head | tail], max_number) when head >= max_number do
+  defp _max([head | tail], max_number) when head >= max_number do
     _max(tail, head)
   end
 
-  def _max([head | tail], max_number) when head < max_number do
+  defp _max([head | tail], max_number) when head < max_number do
     _max(tail, max_number)
   end
 
@@ -53,12 +53,12 @@ defmodule MyList do
     _add_to_list([], from, to)
   end
 
-  def _add_to_list(list, num, num) do
+  defp _add_to_list(list, num, num) do
     [list, num]
     |> List.flatten
   end
 
-  def _add_to_list(list, from, to) do
+  defp _add_to_list(list, from, to) do
     _add_to_list([list, from], from + 1, to)
   end
 end
