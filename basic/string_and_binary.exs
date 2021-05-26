@@ -14,5 +14,10 @@ defmodule StringBinary do
     |> Enum.map(&(String.capitalize(&1)))
     |> Enum.join(". ")
   end
-  
+end
+
+defmodule StringPrefix do
+  def prefix(str) do
+    fn a -> "#{str} #{a}" end
+  end
 end
