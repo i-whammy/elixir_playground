@@ -39,4 +39,20 @@ defmodule MyEnum do
       _filter(tail, result, fun)
     end
   end
+
+  def split(list, count) when count >= Enum.count(list) do
+    {list, []}
+  end
+
+  def split(list, count) when count <= Enum.count(list) * -1 do
+    {[], list}
+  end
+
+  def split(list, count) when count < 0 do
+    split(list, Enum.count(list) - abs(count))
+  end
+
+  def split(list, count) do
+
+  end
 end
