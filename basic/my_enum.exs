@@ -40,11 +40,11 @@ defmodule MyEnum do
     end
   end
 
-  def split(list, count) when count >= Enum.count(list) do
+  def split(list, count) when count >= length(list) do
     {list, []}
   end
 
-  def split(list, count) when count <= Enum.count(list) * -1 do
+  def split(list, count) when count <= length(list) * -1 do
     {[], list}
   end
 
@@ -52,7 +52,23 @@ defmodule MyEnum do
     split(list, Enum.count(list) - abs(count))
   end
 
-  def split(list, count) do
+  def split(list, count) when count == 0 do
+    {[], list}
+  end
 
+  def split([head | tail], count) when count == 1 do
+    {[head], tail}
+  end
+
+  def split([head | tail], count) do
+    {_split(tail, count - 1, [head]), }
+  end
+
+  defp _split(_, 0, acc) do
+    acc
+  end
+
+  defp _split([head | tail], count, acc) do
+    Enum.concat(acc, head)
   end
 end
