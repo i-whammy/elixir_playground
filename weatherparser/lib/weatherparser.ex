@@ -6,8 +6,12 @@ defmodule Weatherparser do
 
   def execute() do
     case HTTPoison.get(@url) do
-      {:ok, response} -> response
+      {:ok, response} -> response.body
       {_, response} -> response
     end
+  end
+
+  def parse_xml(xml) do
+    String.split(xml, "\r\n")
   end
 end
