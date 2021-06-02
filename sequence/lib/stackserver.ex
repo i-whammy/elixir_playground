@@ -9,4 +9,8 @@ defmodule StackServer do
   def handle_call({:reset, list}, _from, _list) do
     { :reply, list, list }
   end
+
+  def handle_cast({:push, element}, list) do
+    { :noreply, [element] ++ list }
+  end
 end
