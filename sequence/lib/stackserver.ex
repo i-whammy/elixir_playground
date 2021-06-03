@@ -1,6 +1,10 @@
 defmodule StackServer do
   use GenServer
 
+  def init(init_arg) do
+    {:ok, init_arg}
+  end
+
   def handle_call(:pop, _from, current) do
     {element, current} = List.pop_at(current, 0)
     { :reply, element, current }
