@@ -14,29 +14,27 @@ defmodule Prime do
   """
   def prime(next_pid) do
     receive do
-      {divisor, 2} ->
-        send next_pid, rem(divisor, 2) != 0
-      {divisor, dividend} ->
-        send next_pid, rem(divisor, dividend-1)
+      {divisor, dividend, result} ->
+        send next_pid, {divisor, dividend+1, rem(divisor, dividend) != 0 && result}
     end
   end
 
+  def prime?(number) when number == 2 do
+    true
+  end
+
   def prime?(number) do
-    last = Enum.reduce(number..1, self(),
+    last = Enum.reduce(2..number - 1, self(),
     fn (_, send_to) ->
       spawn(Prime, :prime, [send_to])
     end)
 
-    send(last, {number, number-1})
+    send(last, {number, 2, true})
 
     receive do
-      result ->
+      {_,_,result} ->
         result
     end
 
-  end
-
-  def hello do
-    :world
   end
 end
