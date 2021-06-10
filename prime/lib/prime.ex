@@ -12,10 +12,13 @@ defmodule Prime do
       :world
 
   """
-  def prime(next_pid) do
+  @block 50
+
+
+  def prime(root) do
     receive do
       {divisor, dividend, result} ->
-        send next_pid, {divisor, dividend+1, rem(divisor, dividend) != 0 && result}
+        send root, {divisor, dividend+1, rem(divisor, dividend) != 0 && result}
     end
   end
 
@@ -29,9 +32,15 @@ defmodule Prime do
       spawn(Prime, :prime, [send_to])
     end)
 
-    send(last, {number, 2, true})
+    Enum.each(0..@block, fn n ->
+      send(last, {number, 2 + n, true})
+    end)
 
     receive do
+      {_,_,false} ->
+        false
+      {divisor, dividend, result} when divisor - dividend >= 50->
+        send(last, {divisor, dividend + 50, result})
       {_,_,result} ->
         result
     end
