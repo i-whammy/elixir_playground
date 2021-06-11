@@ -4,12 +4,12 @@ defmodule Prime do
   """
 
   @doc """
-  Hello world.
+  Returns if the given number is prime or not.
 
   ## Examples
 
-      iex> Prime.hello()
-      :world
+      iex> Prime.prime? 127
+      true
 
   """
   @block 50
@@ -39,7 +39,7 @@ defmodule Prime do
     receive do
       {_,_,false} ->
         false
-      {divisor, dividend, result} when divisor - dividend >= 50->
+      {divisor, dividend, result} when divisor - dividend >= @block ->
         send(last, {divisor, dividend + 50, result})
       {_,_,result} ->
         result
