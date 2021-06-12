@@ -14,6 +14,14 @@ defmodule StringBinary do
     |> Enum.map(&(String.capitalize(&1)))
     |> Enum.join(". ")
   end
+
+  def center(list) do
+    max_length = Enum.max(list, fn a,b -> String.length(a) >= String.length(b) end)
+                  |> String.length
+    Enum.each(list, fn a ->
+      IO.puts("#{String.duplicate(" ", div(max_length - String.length(a), 2))}#{a}#{String.duplicate(" ", div(max_length - String.length(a), 2))}")
+    end)
+  end
 end
 
 defmodule StringPrefix do
